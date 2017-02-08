@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhj.dao.LoginLogDao">
+	<!-- 登录成功后生成登录日志 -->
+	<insert id="insertUserLoginLog" parameterType="com.zhj.vo.LoginLogVo" useGeneratedKeys="true" keyProperty="id">
+		insert into sys_user_login_log (user_id, login_ip, login_time) value(#{userId}, #{loginIp}, now())
+	</insert>
+	
+	<sql id="loginLogData">u.id userId, u.username username, u.nickname, u.phone, u.adress, l.id, l.login_ip loginIp, l.login_time loginTime</sql>
+	<!-- 查询用户登录日志 -->
+	<select id="findUserLoginLogs" resultType="com.zhj.vo.LoginLogVo">
+		select  <include refid="loginLogData" />
+		from sys_user u left join sys_user_login_log l on u.id = l.user_id 
+		<where>
+			<if test="loginLogVo.username!=null and loginLogVo.username!=''">
+				and u.username=#{username}
+			</if>
+			<if test="loginLogVo.userId!=null and loginLogVo.userId !=''">
+				and u.id=#{loginLogVo.userId}
+			</if>
+		</where>
+		order by l.login_time desc 
+		limit #{pageIndex}, #{pageSize}
+	</select>
+	
+	<select id="findCountUserLoginLogs" resultType="int">
+		select count(u.id) from sys_user u left join sys_user_login_log l on u.id = l.user_id 
+		<where>
+			<if test="loginLogVo.username!=null and loginLogVo.username!=''">
+				and u.username=#{username}
+			</if>
+			<if test="loginLogVo.userId!=null and loginLogVo.userId !=''">
+				and u.id=#{loginLogVo.userId}
+			</if>
+		</where>
+	</select>
+</mapper>
