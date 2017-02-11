@@ -10,8 +10,8 @@
 		http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd">
 		
 	<!-- 自动扫描controller包下的所有类，如果@Controller注入为bean -->
-	<!--<context:annotation-config />
-	<context:component-scan base-package="com.zhj.action" />-->
+	<context:annotation-config />
+	<context:component-scan base-package="com.zhj.action" />
 	<!-- 1.jsp的配置start -->
 	<!-- 对模型视图名称的解析，即在模型视图名称添加前后缀 -->
 	 <bean

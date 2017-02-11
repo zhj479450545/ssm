@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd ">
+
+    <!--配置文件方式 start-->
+    <!--<aop:config>
+        <aop:aspect id="myAspect" ref="aspectBean">
+            &lt;!&ndash;配置com.spring.service包下所有类或接口的所有方法&ndash;&gt;
+            <aop:pointcut id="loginLogServiceAspectPointCut" expression="execution(* com.zhj.service.LoginLogService.*(..))"/>
+            <aop:before method="doBefore" pointcut-ref="loginLogServiceAspectPointCut"/>
+            <aop:after method="doAfter" pointcut-ref="loginLogServiceAspectPointCut"/>
+            <aop:around method="doAround" pointcut-ref="loginLogServiceAspectPointCut"/>
+            <aop:after-throwing method="doThrowing" pointcut-ref="loginLogServiceAspectPointCut" throwing="throwable"/>
+        </aop:aspect>
+    </aop:config>
+    <bean id="xmlAspectBean" class="com.zhj.aop.MyXmlSetAspect"/>-->
+    <!--配置文件方式 end-->
+
+    <!--注解方式 start-->
+    <aop:aspectj-autoproxy/>
+    <bean class="org.springframework.aop.aspectj.annotation.AnnotationAwareAspectJAutoProxyCreator"/>
+
+    <bean id="annotationAspectBean" class="com.zhj.aop.MyAnnotationAspect"/>
+    <!--注解方式 end-->
+
+
+    <bean id="aService" class="com.zhj.aop.AServiceImpl"/>
+    <bean id="bService" class="com.zhj.aop.BServiceImpl"/>
+</beans>
