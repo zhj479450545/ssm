@@ -13,6 +13,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.zhj.utils.SessionUtil;
 import com.zhj.vo.User;
 
 public class RequestFilter implements Filter {
@@ -28,14 +29,15 @@ public class RequestFilter implements Filter {
 			throws IOException, ServletException {
 		HttpServletRequest request = (HttpServletRequest)arg0;
 		HttpServletResponse response = (HttpServletResponse) arg1;
-		User user = (User) request.getSession().getAttribute("currentUser");
-		String uri = request.getRequestURI();
+        User user = SessionUtil.getCurrentUser(request);
+        String uri = request.getRequestURI();
 		String rootPath = request.getContextPath()+"/";
 		if(null != uri && uri.toString().indexOf(rootPath) < 0) {
 			//	进此if则说明访问的外网
 			response.sendRedirect(rootPath);
 		} else {
-			if(null == user && !uri.endsWith(rootPath) && !uri.endsWith(LOGIN_URL) && !uri.endsWith(REGISTER_URL)) {//进此if则说明还未登录就访问了本网站的其他内容
+			if(null == user && !uri.endsWith(rootPath) && !uri.endsWith(LOGIN_URL) && !uri.endsWith(REGISTER_URL)) {
+				//进此if则说明还未登录就访问了本网站的其他内容
 				String sufferUrl = uri.substring(uri.lastIndexOf(".")).trim().toLowerCase();
 				if(STATIC_FILE.contains(sufferUrl)) {	//静态资源放过过滤
 					arg2.doFilter(request, response);

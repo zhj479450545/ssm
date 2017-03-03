@@ -18,7 +18,7 @@
 <div class="top-page row">
 	<div class="col-md-2">你好，${currentUser.username }</div>
 	<div class="col-md-2 pull-right">
-		<a class="pull-right" href="#">退出</a>
+		<a class="pull-right" href="<%=request.getContextPath()%>/web/loginOut.html">退出</a>
 	</div>
 </div>
 <div class="left-menu">

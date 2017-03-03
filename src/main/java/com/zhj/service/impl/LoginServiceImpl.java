@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.zhj.constants.MsgCodeConstants;
+import com.zhj.utils.SessionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -36,7 +37,7 @@ public class LoginServiceImpl implements LoginService {
 				}else {
 					resMap.put("code", MsgCodeConstants.SUCCESS_CODE);
 					resMap.put("msg", "查询成功");
-					resMap.put("currentUser", backUser);
+					resMap.put(SessionUtil.CURRENT_USER, backUser);
 				}
 			}
 		} else {

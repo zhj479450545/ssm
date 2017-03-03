@@ -4,6 +4,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.zhj.utils.SessionUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,23 +27,23 @@ public class SystemCenterController {
 	
 	@RequestMapping("index")
 	public String index(HttpServletRequest request, HttpServletResponse response, Model model, LoginLogVo loginLogVo, Integer pageNum, Integer pageSize) {
-		User user = (User) request.getSession().getAttribute("currentUser");
-		loginLogVo.setUserId(user.getId());
+		User user = SessionUtil.getCurrentUser(request);
+        loginLogVo.setUserId(user.getId());
 		PageBean<LoginLogVo> pageBean = getDatas(request, loginLogVo, pageNum, pageSize);
-		model.addAttribute("currentUser", user);
+		model.addAttribute(SessionUtil.CURRENT_USER, user);
 		model.addAttribute("pageBean", pageBean);
 		return "system/index";
 	}
 	
 	@RequestMapping("list")
 	public String list(HttpServletRequest request, HttpServletResponse response,Model model, LoginLogVo loginLogVo, Integer pageNum, Integer pageSize) {
-		User user = (User) request.getSession().getAttribute("currentUser");
-		loginLogVo.setUserId(user.getId());
+        User user = SessionUtil.getCurrentUser(request);
+        loginLogVo.setUserId(user.getId());
 		PageBean<LoginLogVo> pageBean = getDatas(request, loginLogVo, pageNum, pageSize);
 		model.addAttribute("pageBean", pageBean);
 		return "system/list";
 	}
-	
+
 	private PageBean<LoginLogVo> getDatas(HttpServletRequest request, LoginLogVo loginLogVo, Integer pageNum, Integer pageSize){
 		PageBean<LoginLogVo> pageBean = loginLogService.findUserLoginLogs(loginLogVo, pageNum, pageSize);
 		return pageBean;
