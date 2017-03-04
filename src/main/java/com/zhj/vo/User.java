@@ -4,6 +4,9 @@ import java.io.Serializable;
 
 import org.springframework.stereotype.Repository;
 
+/**
+ * 用户实体类
+ */
 @Repository
 public class User implements Serializable {
 	

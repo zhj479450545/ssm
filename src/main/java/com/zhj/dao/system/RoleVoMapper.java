@@ -1,6 +1,8 @@
-package com.zhj.dao;
+package com.zhj.dao.system;
 
 import com.zhj.vo.RoleVo;
+
+import java.util.List;
 
 public interface RoleVoMapper {
     int deleteByPrimaryKey(Integer id);
@@ -14,4 +16,7 @@ public interface RoleVoMapper {
     int updateByPrimaryKeySelective(RoleVo record);
 
     int updateByPrimaryKey(RoleVo record);
+
+    List<RoleVo> selectRolesByUserId(Long userId);
+
 }

@@ -3,6 +3,9 @@ package com.zhj.vo;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * 登录日志实体类
+ */
 public class LoginLogVo implements Serializable {
 
 	

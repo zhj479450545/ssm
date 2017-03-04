@@ -1,9 +1,14 @@
 package com.zhj.utils;
 
 import com.zhj.exception.BusinessException;
+import com.zhj.service.system.RoleService;
+import com.zhj.vo.RoleVo;
 import com.zhj.vo.User;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Administrator on 2017/3/3.
@@ -11,9 +16,11 @@ import javax.servlet.http.HttpServletRequest;
 public class SessionUtil {
 
     public static final String CURRENT_USER = "currentUser";
+    public static final String CURRENT_ROLE = "currentRole";
 
     /**
      * 从Session中获取当前用户信息
+     *
      * @param request
      * @return
      */
@@ -28,6 +35,7 @@ public class SessionUtil {
 
     /**
      * 将当前用户信息设置到Session中
+     *
      * @param request
      * @param user
      */
@@ -41,6 +49,7 @@ public class SessionUtil {
 
     /**
      * 从Session中移除当前用户信息
+     *
      * @param request
      */
     public static void removeCurrentUser(HttpServletRequest request) {

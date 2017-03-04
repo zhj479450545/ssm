@@ -1,13 +1,16 @@
 package com.zhj.action;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.zhj.constants.MsgCodeConstants;
+import com.zhj.service.system.RoleService;
 import com.zhj.utils.SessionUtil;
+import com.zhj.vo.RoleVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,6 +29,8 @@ public class LoginController {
     private LoginService loginService;
     @Autowired
     private LoginLogService loginLogService;
+    @Autowired
+    RoleService roleService;
 
     /**
      * 用户登录
@@ -47,7 +52,11 @@ public class LoginController {
             vo.setUserId(user.getId());
             vo.setLoginIp(request.getRemoteAddr());
             loginLogService.addUserLoginLog(vo);
+
+            // 向Session中设置用户信息
             SessionUtil.setCuttentUser(request, user);
+            List<RoleVo> roles = roleService.findRolesByUserId(user.getId());
+            request.getSession().setAttribute(SessionUtil.CURRENT_ROLE, roles);
         }
 
         resMap.put("code", (String) userMap.get("code"));

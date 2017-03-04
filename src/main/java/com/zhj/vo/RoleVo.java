@@ -1,25 +1,28 @@
 package com.zhj.vo;
 
+/**
+ * 角色实体类
+ */
 public class RoleVo {
-    private Integer id;
+    private Long id;
 
-    private Integer parentId;
+    private Long parentId;
 
     private String name;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public Integer getParentId() {
+    public Long getParentId() {
         return parentId;
     }
 
-    public void setParentId(Integer parentId) {
+    public void setParentId(Long parentId) {
         this.parentId = parentId;
     }
 
@@ -30,4 +33,5 @@ public class RoleVo {
     public void setName(String name) {
         this.name = name == null ? null : name.trim();
     }
+
 }
